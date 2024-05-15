@@ -27,4 +27,4 @@ jobs:
         
     - name: 'Terraform Init'
       id: init
-      run: terraform init
+      run: terraform -chdir="./" init -input=false
