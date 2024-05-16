@@ -1,6 +1,6 @@
 #.github\workflows\connect-azure.yml
 
-name: Run Azure Login with OpenID Connect first
+name: Terraform
 
 on:
   push:
@@ -25,3 +25,7 @@ jobs:
     - name: 'Run Azure CLI command'
       run: |
           az account show -o table
+    - name: 'Terrafrom Use'
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: "1.1.7"
