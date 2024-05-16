@@ -1,34 +1,47 @@
-#.github\workflows\connect-azure.yml
-
-name: Terraform
+name: 'Terraform'
 
 on:
-  push:
-    branches:
-    - main
+  workflow_dispatch:
 
-permissions:
-      id-token: write
-      contents: read
-      
-jobs: 
-  build-and-deploy:
+jobs:
+  terraform:
+    name: 'Terraform'
     runs-on: ubuntu-latest
-    steps:
-    - name: 'Az CLI login'
-      uses: azure/login@v1
-      with:
-          client-id: ${{ secrets.AZURE_AD_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_AD_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  
-    - name: 'Run Azure CLI command'
-      run: |
-          az account show -o table
-    - name: 'Terrafrom Use'
-      uses: hashicorp/setup-terraform@v3
-      with:
-        terraform_version: "1.1.7"
+    defaults: 
+      run: 
+        shell: bash
+    env:
+      ARM_CLIENT_ID: ee7c842f-634d-4a27-9bcb-0cff3e41b2ce
+      ARM_CLIENT_SECRET: e1b8Q~sTTmwEIMPJ9DUrS0msO3RJOKIouJdzYccW
+      ARM_SUBSCRIPTION_ID: dc70695c-b344-48c0-b8c4-02b002f254ce
+      ARM_TENANT_ID: 81c3b323-8a08-4730-b416-9066c1bea520
+      RESOURCE_GROUP: rg-ninety-test-01
+      STORAGE_ACCOUNT: stog01
+      CONTAINER_NAME: stgct01
+      TF_VERSION: 1.6.6
 
-    - name: 'Terraform Init'
-      run: terraform -chdir="./" init -input=false
+
+    steps:
+  # Checkout the respository to the GitHub Actions runner
+    - name: Checkout
+      uses: actions/checkout@v4.1.1
+
+  # Install the preferred version of Terraform CLI 
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2.0.3
+      with:
+          terraform_version: 1.6.6
+
+# Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    - name: Terraform Init
+      id: init
+      run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
+
+# Run a terraform plan 
+    - name: Terraform Plan
+      id: plan
+      run: terraform plan -no-color
+
+# On workflow dispatch build or change infrastructure according to Terraform configuration files
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
