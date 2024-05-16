@@ -9,6 +9,14 @@ terraform {
       version = "~>3.0"
     }
   }
+  # Update this block with the location of your terraform state file
+  backend "azurerm" {
+    resource_group_name  = "rg-ninety-test-01"
+    storage_account_name = "stog01"
+    container_name       = "stgct01"
+    key                  = "terraform.tfstate"
+    use_oidc             = true
+  }
 }
 
 provider "azurerm" {
