@@ -31,4 +31,4 @@ jobs:
         terraform_version: "1.1.7"
 
     - name: 'Terraform Init'
-      run: terraform init
+      run: terraform -chdir="./" init -input=false
