@@ -32,6 +32,7 @@
           run: |
             az account show
             az group list
+            
         - name: Checkout
           uses: actions/checkout@v4.1.1
 
