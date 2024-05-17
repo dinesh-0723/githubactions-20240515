@@ -12,7 +12,7 @@ jobs:
         shell: bash
     env:
       ARM_CLIENT_ID: ee7c842f-634d-4a27-9bcb-0cff3e41b2ce
-      #ARM_CLIENT_SECRET: e1b8Q~sTTmwEIMPJ9DUrS0msO3RJOKIouJdzYccW
+      ARM_CLIENT_SECRET: e1b8Q~sTTmwEIMPJ9DUrS0msO3RJOKIouJdzYccW
       ARM_SUBSCRIPTION_ID: dc70695c-b344-48c0-b8c4-02b002f254ce
       ARM_TENANT_ID: 81c3b323-8a08-4730-b416-9066c1bea520
       RESOURCE_GROUP: rg-ninety-test-01
