@@ -24,8 +24,19 @@
             client-id: ${{ secrets.AZURE_AD_CLIENT_ID }}
             tenant-id: ${{ secrets.AZURE_AD_TENANT_ID }}
             subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-    
+            RESOURCE_GROUP: rg-ninety-test-01
+            STORAGE_ACCOUNT: stog01
+            CONTAINER_NAME: stgct01
+                
         - name: 'Run az commands'
           run: |
             az account show
             az group list
+        - name: Checkout
+          uses: actions/checkout@v4.1.1
+
+  # Install the preferred version of Terraform CLI 
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v2.0.3
+          with:
+              terraform_version: 1.6.6
