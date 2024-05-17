@@ -31,5 +31,6 @@
 ############################## Az Login            
         - name: 'Run az commands'
           run: |
-            az account show
-            az group list
+            az cache delete
+            az account show -o table
+            az group list -o table
