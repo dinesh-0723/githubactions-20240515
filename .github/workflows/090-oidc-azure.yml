@@ -62,6 +62,7 @@
             ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
             ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
             ARM_USE_OIDC: true
+        ### Terraform APply
         - name: Terraform Apply
           id: apply
           #run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
