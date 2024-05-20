@@ -52,3 +52,12 @@
             ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
             ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
             ARM_USE_OIDC: true
+        - name: Terraform Init
+          id: plan
+          #run: terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT" -backend-config="container_name=$CONTAINER_NAME" -backend-config="resource_group_name=$RESOURCE_GROUP"
+          run: terraform plan
+          env:
+            ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+            ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+            ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
+            ARM_USE_OIDC: true
