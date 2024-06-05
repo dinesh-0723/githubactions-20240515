@@ -1,1 +1,1 @@
-FROM mysql:oraclelinux9@sha256-d4990507327f4d08aaf57d9c7e2e0250260e9f6ef7fa0e0bfe822c37ad2e1b2f
+FROM mysql:oraclelinux9@sha256-1dde2a549e58ca004b99669a1c4939e3782c2185bf35f2b09b32e7c2393babd8
