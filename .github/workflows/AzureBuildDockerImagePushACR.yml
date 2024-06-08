@@ -19,4 +19,4 @@ jobs:
         password: ${{ secrets.AZURE_AD_CLIENT_SECRET}}
     - run: |
         docker build -t cargoacr.azurecr.io/demoapp:${{ github.sha }} .
-        docker push cargoacr.azurecr.io/demoapp:${{ github.sha }}
+###docker push cargoacr.azurecr.io/demoapp:${{ github.sha }}##
