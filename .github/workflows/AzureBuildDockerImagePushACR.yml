@@ -9,6 +9,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: ./Manisfestfiles
     steps:
     - uses: actions/checkout@v2
     - uses: azure/docker-login@v1
@@ -17,6 +18,5 @@ jobs:
         username: ${{ secrets.AZURE_AD_CLIENT_ID }}
         password: ${{ secrets.AZURE_AD_CLIENT_SECRET}}
     - run: |
-        working-directory: ./Manisfestfiles
         docker build -t cargoacr.azurecr.io/demoapp:${{ github.sha }} .
         docker push cargoacr.azurecr.io/demoapp:${{ github.sha }}
