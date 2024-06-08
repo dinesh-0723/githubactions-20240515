@@ -12,9 +12,9 @@ jobs:
         working-directory: /
     steps:
     - uses: actions/checkout@v2
-    - uses: azure/docker-login@v1
-      with:
-        login-server: cargo.azurecr.io
+    #- uses: azure/docker-login@v1
+     # with:
+      #  login-server: cargo.azurecr.io
         #username: ${{ secrets.REGISTRY_USERNAME }}
         #password: ${{ secrets.REGISTRY_PASSWORD }}
     - run: |
