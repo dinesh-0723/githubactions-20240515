@@ -11,10 +11,10 @@ jobs:
         shell: bash
     steps:
     - uses: actions/checkout@v2
-    #- uses: azure/docker-login@v1
-     # with:
-      #  login-server: cargo.azurecr.io
-        #username: ${{ secrets.REGISTRY_USERNAME }}
-        #password: ${{ secrets.REGISTRY_PASSWORD }}
+    - uses: azure/docker-login@v1
+      with:
+        login-server: cargoacr.azurecr.io
+        username: ${{ secrets.AZURE_AD_CLIENT_ID }}
+        password: ${{ secrets.AZURE_AD_CLIENT_SECRET}}
     - run: |
-        docker build -t cargo.azurecr.io/myapp:${{ github.sha }} .
+        docker build -t cargoacr.azurecr.io/myappgithun:${{ github.sha }} .
