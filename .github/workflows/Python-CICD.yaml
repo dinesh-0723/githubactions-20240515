@@ -5,6 +5,7 @@ on:
 env:
   REGISTRY_NAME: cargoactions
   IMAGE_NAME: pythonapp
+  AZURE_WEBAPP_NAME: cargoazwebapp
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -24,3 +25,10 @@ jobs:
           file: ./python-dockerfile
           push: true
           tags: ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          images: ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.IMAGE_NAME }}:latest
