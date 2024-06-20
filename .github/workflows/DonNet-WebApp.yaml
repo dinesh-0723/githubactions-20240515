@@ -6,7 +6,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    working-directory: '/DotNetCode'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
