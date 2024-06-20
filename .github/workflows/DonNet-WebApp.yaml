@@ -6,6 +6,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: './DotNetCode'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -16,15 +19,12 @@ jobs:
           dotnet-version: '5.0'
 
       - name: Restore NuGet packages
-        working-directory: '/DotNetCode'
         run: dotnet restore
 
       - name: Build project
-        working-directory: '/DotNetCode'
         run: dotnet build -c Release
 
       - name: Publish project
-        working-directory: '/DotNetCode'
         run: dotnet publish -c Release -o publish
 
       - name: Deploy to Azure App Service
