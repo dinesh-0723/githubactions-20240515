@@ -1,4 +1,4 @@
-name: Build and Deploy.NET Project
+name: CICD-DotNet
 
 on:
   workflow_dispatch:
@@ -16,12 +16,15 @@ jobs:
           dotnet-version: '5.0'
 
       - name: Restore NuGet packages
+        working-directory: '/DotNetCode'
         run: dotnet restore
 
       - name: Build project
+        working-directory: '/DotNetCode'
         run: dotnet build -c Release
 
       - name: Publish project
+        working-directory: '/DotNetCode'
         run: dotnet publish -c Release -o publish
 
       - name: Deploy to Azure App Service
