@@ -2,6 +2,8 @@ name: CICD-DotNet
 
 on:
   workflow_dispatch:
+env:
+  AZURE_WEBAPP_NAME: mamodemo
 
 jobs:
   build-and-deploy:
@@ -27,15 +29,22 @@ jobs:
       - name: Publish project
         run: dotnet publish -c Release -o publish
 
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: './publish'
+          azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Login to Azure
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
+      - name: Configure Azure Web App
+        uses: azure/appservice-settings@v1
         with:
-          app-name: 'mamodemo'
-          slot-name: 'Production'
-          package: .
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          app-settings-json: '[{ "name": "MY_ENV_VAR", "value": "my-value", "slotSetting": false }]'
+      - name: Restart Azure Web App
+        run: >
+          az webapp start --name ${{ env.AZURE_WEBAPP_NAME }} --resource-group rg-ninety-test-01
