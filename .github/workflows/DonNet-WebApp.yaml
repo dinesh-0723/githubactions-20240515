@@ -1,38 +1,36 @@
----
-  name: CICD-DotNet
-  on:
-    push:
-      branches:
-        - main
-  jobs:
-    build-and-deploy:
-      runs-on: windows-latest
-      defaults:
-        run:
-          working-directory: ./Dot
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
+name: Deploy to Azure Web App
 
-        - name: Install.NET Core SDK
-          uses: actions/setup-dotnet@v1
-          with:
-            dotnet-version: "6.0"
-        - name: Build project
-          run: dotnet build -c Release
+on:
+  push:
+    branches:
+      - main
 
-        - name: Build project
-          run: dotnet test -c Release
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+	defaults:
+      run:
+        working-directory: './Dot'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-        - name: Publish project
-          run: dotnet publish -c Release -o publish
+      - name: Restore NuGet packages
+        run: dotnet restore
 
-        - name: Publish Artifact
-          uses: actions/upload-artifact@v3
-          with:
-            name: my-artifact
-            path: $GITHUB_WORKSPACE
-        - name: Verify artifact
-          run: |
-            dir $GITHUB_WORKSPACE
-  
+      - name: Build and package
+        run: |
+          dotnet build -c Release
+          dotnet publish -c Release -o publish
+
+      - name: Create ZIP file
+        run: |
+          cd publish
+          zip -r ../app.zip .
+
+#      - name: Deploy to Azure Web App
+#        uses: azure/webapps-deploy@v2
+#        with:
+#          app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
+#          package: app.zip
+#          azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
