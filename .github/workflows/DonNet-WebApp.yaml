@@ -33,6 +33,6 @@
           uses: azure/webapps-deploy@v2
           with:
             app-name: cargowebapp
-            package: app.zip
+            package: /home/runner/work/githubactions-20240515/githubactions-20240515/Dot/publish/app.zip
             publish-profile: ${{ secrets.azureWebAppPublishProfile }}
            # azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
