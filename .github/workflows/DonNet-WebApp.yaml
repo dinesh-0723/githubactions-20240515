@@ -3,9 +3,6 @@ on:
   push:
     branches:
     - main
-#  #workflow_dispatch:
-#env:
-#  AZURE_WEBAPP_NAME: mamodemo
 jobs:
   build-and-deploy:
     runs-on: windows-latest
@@ -20,10 +17,7 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '5.0'
-#      - name: Current Directory 1
-#        run: |
-#          dir $GITHUB_WORKSPACE
-          
+        
       - name: Restore NuGet packages
         run: dotnet restore
 
@@ -33,43 +27,36 @@ jobs:
       - name: Publish project
         run: dotnet publish -c Release -o publish
       
-#      - name: Current Directory 2
-#        run: |
-#          dir $GITHUB_WORKSPACE
-#          dir D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
-
-      - name: Publish Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: my-artifact
-          path: D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
-          #path: ./my-project/bin/Release/net6.0/my-project.dll
-
-      
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact
-          path: $GITHUB_WORKSPACE
-
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          path : $GITHUB_WORKSPACE
-          name: my-artifact
-
-      - name: Verify artifact
-        run: |
-          dir $GITHUB_WORKSPACE
-          
-      - name: Artifact Path
-        run: |
-          #dir $GITHUB_WORKSPACE
-          dir D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
-
-      - uses: actions/download-artifact@v4
-        with:
-          name: my-artifact
+#     - name: Publish Artifact
+#       uses: actions/upload-artifact@v3
+#       with:
+#         name: my-artifact
+#         path: D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
+#     
+#     - name: Upload artifact
+#       uses: actions/upload-artifact@v2
+#       with:
+#         name: my-artifact
+#         path: $GITHUB_WORKSPACE/**
+#
+#     - name: Download artifact
+#       uses: actions/download-artifact@v2
+#       with:
+#         path : $GITHUB_WORKSPACE
+#         name: my-artifact
+#
+#     - name: Verify artifact
+#       run: |
+#         dir $GITHUB_WORKSPACE
+#
+#     - name: Artifact Path
+#       run: |
+#         #dir $GITHUB_WORKSPACE
+#         dir D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
+#
+#     - uses: actions/download-artifact@v4
+#       with:
+#         name: my-artifact
 #         path: D:\a\
 #     - name: Display structure of downloaded files
 #       run: ls -R D:\a\
