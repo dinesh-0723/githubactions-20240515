@@ -13,12 +13,15 @@
       steps:
         - name: Checkout code
           uses: actions/checkout@v2
+
         - name: Restore NuGet packages
           run: dotnet restore
+
         - name: Build and package
           run: |
             dotnet build -c Release
             dotnet publish -c Release -o publish
+
         - name: Create ZIP file
           run: |
             cd publish
@@ -26,10 +29,12 @@
             #ls ..
             #pwd
             ls /home/runner/work/githubactions-20240515/githubactions-20240515/Dot
+
         - name: Login to Azure
           uses: azure/login@v1
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
+            
         - name: Deploy to Azure Web App
           uses: azure/webapps-deploy@v2
           with:
