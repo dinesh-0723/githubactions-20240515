@@ -31,18 +31,18 @@ jobs:
       - name: Build and package
         run: |
           dotnet build -c Release
-          dotnet publish -c Release -o $(System.DefaultWorkingDirectory)/app
+          dotnet publish -c Release -o $GITHUB_WORKSPACE/app
 
       - name: Create deployment package
         run: |
-          cd $(System.DefaultWorkingDirectory)/app
-          zip -r $(System.DefaultWorkingDirectory)/app.zip .
+          cd $GITHUB_WORKSPACE/app
+          zip -r $GITHUB_WORKSPACE/app.zip .
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: app
-          path: $(System.DefaultWorkingDirectory)/app.zip
+          path: $GITHUB_WORKSPACE/app.zip
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
