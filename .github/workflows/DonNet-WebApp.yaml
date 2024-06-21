@@ -38,11 +38,12 @@ jobs:
           dir $GITHUB_WORKSPACE
           dir D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
 
-#      - name: Publish Artifact
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: my-artifact
-#          path: ./my-project/bin/Release/net6.0/my-project.dll
+      - name: Publish Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
+          #path: ./my-project/bin/Release/net6.0/my-project.dll
 #      - name: Current Directory 3
 #        run: |
 #          dir $GITHUB_WORKSPACE      
