@@ -48,7 +48,14 @@ jobs:
       - name: Artifact Path
         run: |
           #dir $GITHUB_WORKSPACE
-          dir path: D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
+          dir D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: my-artifact
+          path: D:\a\
+      - name: Display structure of downloaded files
+        run: ls -R D:\a\
 
       - name: Login to Azure
         uses: azure/login@v1
