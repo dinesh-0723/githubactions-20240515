@@ -1,10 +1,8 @@
 name: CICD-DotNet
-
 on:
   workflow_dispatch:
 env:
   AZURE_WEBAPP_NAME: mamodemo
-
 jobs:
   build-and-deploy:
     runs-on: windows-latest
@@ -19,9 +17,9 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '5.0'
-      - name: Run script
+      - name: Current Directory 1
         run: |
-          dir $GITHUB_WORKSPACE
+          dir $GITHUB_WORKSPACE/bin
 
       - name: Restore NuGet packages
         run: dotnet restore
@@ -32,10 +30,17 @@ jobs:
       - name: Publish project
         run: dotnet publish -c Release -o publish
       
-      - name: Run script
+      - name: Current Directory 2
         run: |
           dir $GITHUB_WORKSPACE
-      
+#      - name: Publish Artifact
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: my-artifact
+#          path: ./my-project/bin/Release/net6.0/my-project.dll
+#      - name: Current Directory 3
+#        run: |
+#          dir $GITHUB_WORKSPACE      
 #      - uses: actions/upload-artifact@v4
 #        id: artifact-upload-step
 #        with:
