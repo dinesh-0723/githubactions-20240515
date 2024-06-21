@@ -1,84 +1,26 @@
-name: CICD-DotNet
-on:
-  push:
-    branches:
-    - main
-jobs:
-  build-and-deploy:
-    runs-on: windows-latest
-    defaults:
-      run:
-        working-directory: './Dot'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install.NET Core SDK
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '6.0'
-        
-#      - name: Restore NuGet packages
-#        run: dotnet restore
-
-      - name: Build project
-        run: dotnet build -c Release
-		
-	  - name: Build project
-        run: dotnet test -c Release
-
-      - name: Publish project
-        run: dotnet publish -c Release -o publish
-      
-#      - name: Publish Artifact
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: my-artifact
-#         path: D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
-#     
-#     - name: Upload artifact
-#       uses: actions/upload-artifact@v2
-#       with:
-#         name: my-artifact
-#         path: $GITHUB_WORKSPACE/**
-#
-#     - name: Download artifact
-#       uses: actions/download-artifact@v2
-#       with:
-#         path : $GITHUB_WORKSPACE
-#         name: my-artifact
-#
-#     - name: Verify artifact
-#       run: |
-#         dir $GITHUB_WORKSPACE
-#
-#     - name: Artifact Path
-#       run: |
-#         #dir $GITHUB_WORKSPACE
-#         dir D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
-#
-#     - uses: actions/download-artifact@v4
-#       with:
-#         name: my-artifact
-#         path: D:\a\
-#     - name: Display structure of downloaded files
-#       run: ls -R D:\a\
-#
-#     - name: Login to Azure
-#       uses: azure/login@v1
-#       with:
-#         creds: ${{ secrets.AZURE_CREDENTIALS }}
-#  
-#     - name: Deploy to Azure Web App
-#       uses: azure/webapps-deploy@v2
-#       with:
-#         app-name: 'cargowebapp'
-#         package: './my-artifact.zip'
-#      - name: Current Directory 3
-#        run: |
-#          dir $GITHUB_WORKSPACE      
-#      - uses: actions/upload-artifact@v4
-#        id: artifact-upload-step
-#        with:
-#          name: my-artifact
-#          path: path/to/artifact/content/#
+---
+  name: CICD-DotNet
+  on:
+    push:
+      branches:
+        - main
+  jobs:
+    build-and-deploy:
+      runs-on: windows-latest
+      defaults:
+        run:
+          working-directory: ./Dot
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+        - name: Install.NET Core SDK
+          uses: actions/setup-dotnet@v1
+          with:
+            dotnet-version: "6.0"
+        - name: Build project
+          run: dotnet build -c Release
+        - name: Build project
+          run: dotnet test -c Release
+        - name: Publish project
+          run: dotnet publish -c Release -o publish
+  
