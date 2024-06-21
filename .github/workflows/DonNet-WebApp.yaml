@@ -30,10 +30,9 @@
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
         - name: Deploy to Azure Web App
-          run: pwd
           uses: azure/webapps-deploy@v2
           with:
             app-name: cargowebapp
             package: app.zip
             publish-profile: ${{ secrets.azureWebAppPublishProfile }}
-            azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+           # azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
