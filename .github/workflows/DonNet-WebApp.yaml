@@ -23,6 +23,7 @@
           run: |
             cd publish
             zip -r ../app.zip .
+            ls ..
         - name: Login to Azure
           uses: azure/login@v1
           with:
