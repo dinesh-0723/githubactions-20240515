@@ -1,36 +1,32 @@
-name: Deploy to Azure Web App
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-	defaults:
-      run:
-        working-directory: './Dot'
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Restore NuGet packages
-        run: dotnet restore
-
-      - name: Build and package
-        run: |
-          dotnet build -c Release
-          dotnet publish -c Release -o publish
-
-      - name: Create ZIP file
-        run: |
-          cd publish
-          zip -r ../app.zip .
-
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: cargowebapp
-          package: app.zip
-          azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+---
+  name: Deploy to Azure Web App
+  on:
+    push:
+      branches:
+        - main
+  jobs:
+    deploy:
+      runs-on: ubuntu-latest
+      defaults:
+        run:
+          working-directory: ./Dot
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v2
+        - name: Restore NuGet packages
+          run: dotnet restore
+        - name: Build and package
+          run: |
+            dotnet build -c Release
+            dotnet publish -c Release -o publish
+        - name: Create ZIP file
+          run: |
+            cd publish
+            zip -r ../app.zip .
+        - name: Deploy to Azure Web App
+          uses: azure/webapps-deploy@v2
+          with:
+            app-name: cargowebapp
+            package: app.zip
+            publish-profile: ${{ secrets.azureWebAppPublishProfile }}
+            #azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}  
