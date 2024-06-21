@@ -44,7 +44,14 @@ jobs:
           name: my-artifact
           path: D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
           #path: ./my-project/bin/Release/net6.0/my-project.dll
-      
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: my-artifact
+
+      - name: Verify artifact
+        run: |
+          dir my-artifact
       - name: Artifact Path
         run: |
           #dir $GITHUB_WORKSPACE
