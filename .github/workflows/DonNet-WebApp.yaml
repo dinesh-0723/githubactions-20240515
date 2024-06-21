@@ -25,7 +25,7 @@
             zip -r ../app.zip .
             ls ..
             pwd
-            ls /home/runner/work/githubactions-20240515/githubactions-20240515/Dot/publish/app.zip
+            ls /home/runner/work/githubactions-20240515/githubactions-20240515/Dot
         - name: Login to Azure
           uses: azure/login@v1
           with:
