@@ -44,6 +44,17 @@ jobs:
           name: my-artifact
           path: D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
           #path: ./my-project/bin/Release/net6.0/my-project.dll
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+  
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'cargowebapp'
+          package: './my-artifact.zip'
 #      - name: Current Directory 3
 #        run: |
 #          dir $GITHUB_WORKSPACE      
