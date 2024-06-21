@@ -1,52 +1,70 @@
-name: Build and deploy .NET Core app to Azure Web App
-
-env:
-  AZURE_WEBAPP_NAME: cargowebapp
-  AZURE_WEBAPP_PACKAGE_PATH: '$(System.DefaultWorkingDirectory)/**/*.zip'
-  DOTNET_VERSION: '6.0'
-
+name: CICD-DotNet
 on:
   push:
     branches:
-      - main
-
+    - main
+#  #workflow_dispatch:
+#env:
+#  AZURE_WEBAPP_NAME: mamodemo
 jobs:
   build-and-deploy:
     runs-on: windows-latest
     defaults:
       run:
         working-directory: './Dot'
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v3
+      - name: Install.NET Core SDK
+        uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
-
+          dotnet-version: '5.0'
+#      - name: Current Directory 1
+#        run: |
+#          dir $GITHUB_WORKSPACE
+          
       - name: Restore NuGet packages
         run: dotnet restore
 
-      - name: Build and package
-        run: |
-          dotnet build -c Release
-          dotnet publish -c Release -o $GITHUB_WORKSPACE/app
+      - name: Build project
+        run: dotnet build -c Release
 
-      - name: Create deployment package
-        run: |
-          cd $GITHUB_WORKSPACE/app
-          zip -r $GITHUB_WORKSPACE/app.zip .
+      - name: Publish project
+        run: dotnet publish -c Release -o publish
+      
+#      - name: Current Directory 2
+#        run: |
+#          dir $GITHUB_WORKSPACE
+#          dir D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Publish Artifact
+        uses: actions/upload-artifact@v3
         with:
-          name: app
-          path: $GITHUB_WORKSPACE/app.zip
+          name: my-artifact
+          path: D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
+          #path: ./my-project/bin/Release/net6.0/my-project.dll
+      
+      - name: Artifact Path
+        run: |
+          #dir $GITHUB_WORKSPACE
+          dir path: D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
 
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+#  
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          app-name: 'cargowebapp'
+          package: './my-artifact.zip'
+#      - name: Current Directory 3
+#        run: |
+#          dir $GITHUB_WORKSPACE      
+#      - uses: actions/upload-artifact@v4
+#        id: artifact-upload-step
+#        with:
+#          name: my-artifact
+#          path: path/to/artifact/content/
