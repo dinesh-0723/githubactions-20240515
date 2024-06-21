@@ -32,7 +32,7 @@ jobs:
       
       - name: Current Directory 2
         run: |
-          dir $GITHUB_WORKSPACE/bin
+          dir $GITHUB_WORKSPACE\bin
 
 #      - name: Publish Artifact
 #        uses: actions/upload-artifact@v3
