@@ -45,6 +45,12 @@ jobs:
           path: D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
           #path: ./my-project/bin/Release/net6.0/my-project.dll
       
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: net-app
+          path: D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0\my-artifact
+      
       - name: Artifact Path
         run: |
           #dir $GITHUB_WORKSPACE
