@@ -47,6 +47,7 @@ jobs:
       
       - name: Artifact Path
         run: |
+          dir $GITHUB_WORKSPACE
           dir D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
 
       - name: Login to Azure
