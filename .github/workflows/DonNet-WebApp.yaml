@@ -1,6 +1,9 @@
 name: CICD-DotNet
 on:
-  workflow_dispatch:
+  push:
+    branches:
+    - main
+  #workflow_dispatch:
 env:
   AZURE_WEBAPP_NAME: mamodemo
 jobs:
@@ -33,7 +36,7 @@ jobs:
       - name: Current Directory 2
         run: |
           dir $GITHUB_WORKSPACE
-          dir D:\a\githubactions-20240515\githubactions-20240515\Dot\bin
+          dir D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release
 
 #      - name: Publish Artifact
 #        uses: actions/upload-artifact@v3
