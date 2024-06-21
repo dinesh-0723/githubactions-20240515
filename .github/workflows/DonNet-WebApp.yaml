@@ -25,12 +25,12 @@ jobs:
         run: dotnet build -c Release
 
       - name: Publish project
-        run: dotnet publish -c Release -o publish
+        run: dotnet publish -c Release -o publish --output ./output
       
-     - name: Publish Artifact
-       uses: actions/upload-artifact@v3
-       with:
-         name: my-artifact
+#      - name: Publish Artifact
+#        uses: actions/upload-artifact@v3
+#        with:
+#          name: my-artifact
 #         path: D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
 #     
 #     - name: Upload artifact
@@ -78,4 +78,4 @@ jobs:
 #        id: artifact-upload-step
 #        with:
 #          name: my-artifact
-#          path: path/to/artifact/content/
+#          path: path/to/artifact/content/#
