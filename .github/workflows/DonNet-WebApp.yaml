@@ -3,9 +3,9 @@ on:
   push:
     branches:
     - main
-  #workflow_dispatch:
-env:
-  AZURE_WEBAPP_NAME: mamodemo
+#  #workflow_dispatch:
+#env:
+#  AZURE_WEBAPP_NAME: mamodemo
 jobs:
   build-and-deploy:
     runs-on: windows-latest
@@ -20,9 +20,9 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '5.0'
-      - name: Current Directory 1
-        run: |
-          dir $GITHUB_WORKSPACE
+#      - name: Current Directory 1
+#        run: |
+#          dir $GITHUB_WORKSPACE
           
       - name: Restore NuGet packages
         run: dotnet restore
@@ -33,10 +33,10 @@ jobs:
       - name: Publish project
         run: dotnet publish -c Release -o publish
       
-      - name: Current Directory 2
-        run: |
-          dir $GITHUB_WORKSPACE
-          dir D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
+#      - name: Current Directory 2
+#        run: |
+#          dir $GITHUB_WORKSPACE
+#          dir D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
 
       - name: Publish Artifact
         uses: actions/upload-artifact@v3
@@ -47,14 +47,14 @@ jobs:
       
       - name: Artifact Path
         run: |
-          dir $GITHUB_WORKSPACE
-          dir D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
+          #dir $GITHUB_WORKSPACE
+          dir path: D:\a\githubactions-20240515\githubactions-20240515\Dot\bin\Release\net5.0
 
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-  
+#      - name: Login to Azure
+#        uses: azure/login@v1
+#        with:
+#          creds: ${{ secrets.AZURE_CREDENTIALS }}
+#  
 #      - name: Deploy to Azure Web App
 #        uses: azure/webapps-deploy@v2
 #        with:
